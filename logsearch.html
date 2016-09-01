@@ -1,0 +1,77 @@
+<html>
+<head>
+	<title>Mail Log Search Interface</title>
+	<style type="text/css">
+
+	input.addresses {
+		border		:thin ridge #0D5484;
+		display		:	      table;
+		margin-top	:	      1.5em;
+		margin-left	:		2em;
+	}
+
+	input.buttons {
+		margin-top	:	2em;
+		margin-left	:	8em;
+		color		:	white;
+		font-weight	:	bold;
+		background-color:   	#0D5484;
+	}
+
+	</style>
+</head>
+
+<body>
+	<h2 style="margin-top: 1em; color: #0D5484;">Mail Log Search Interface</h2>
+
+	<!-- #BEGINZONE form -->
+	<p>Enter the email address(es) to search for:</p>
+	<form method="POST" action="pmlsearch.cgi">
+		<br>
+		From Address: &nbsp; <input type="text" name="from_address" class="addresses">
+		<br>
+		To Address: &nbsp; <input type="text" name="to_address" class="addresses">
+		<br>
+		<b>Note:</b> You <em>must </em> specify <em>at least</em> one of the above but you can specify both "From" and "To" addresses.
+		<br>
+		<br>
+		<p>Select which day you want logs for:</p>
+		<select name="period" style="width: 220;">
+			<option value="0">Today</option>
+			<option value="1">1 day ago</option>
+			<option value="2">2 days ago</option>
+			<option value="3">3 days ago</option>
+			<option value="4">4 days ago</option>
+			<option value="5">5 days ago</option>
+			<option value="6">6 days ago</option>
+			<option value="7">&gt; 1 week ago</option>
+		</select>
+
+		<input type="submit" class="buttons" name="action" value="Search" style="">
+
+	</form>
+	<!-- #ENDZONE form -->
+
+	<!-- #BEGINZONE blank_addr -->
+	<h3 style="margin-top: 1em; color: red;">Error!</h3>
+	<p>The email addresses cannot be left blank. At least one of the two, i.e., 'from address' or 'to address' must be specified. Please go back and try again after entering a valid email address(es).</p>
+	<!-- #ENDZONE blank_addr -->
+
+	<!-- #BEGINZONE bad_addr -->
+	<h3 style="margin-top: 1em; color: red;">Error!</h3>
+	<p>The email address cannot contain any blanks. Please go back and try again after entering a valid email address.</p>
+	<!-- #ENDZONE bad_addr -->
+
+	<!-- #BEGINZONE no_logfile -->
+	<p>Sorry, there are no records for that day. Maybe you should try a more recent date.<p>
+	<!-- #ENDZONE no_logfile -->
+
+	<!-- #BEGINZONE too_old -->
+	<p>For logs older than ##duration##, contact the server admin<p>
+	<!-- #ENDZONE too_old -->
+
+	<!-- #BEGINZONE success -->
+	<iframe src="/cgi-bin/download_logs.cgi" style="width: 1200; height: 600; font-size: 20pt;">
+	</iframe>
+	<!-- #ENDZONE success -->
+</body>
